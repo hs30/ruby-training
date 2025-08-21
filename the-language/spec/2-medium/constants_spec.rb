@@ -69,44 +69,44 @@ describe 'Constants' do
   # really "constant" because they can be modified / altered
 
   it 'references local constants' do
-    expect(More.local).to eq(__)
+    expect(More.local).to eq('nested')
   end
 
   it 'uses the double colon `::`, syntax to reference global constants' do
-    expect(More.global).to eq(__)
+    expect(More.global).to eq('top level')
   end
 
   it 'references nested constants using their complete path' do
-    expect(More::C).to eq(__)
-    expect(::More::C).to eq(__)
+    expect(More::C).to eq('nested')
+    expect(::More::C).to eq('nested')
   end
 
   it 'can access constants on instances as well as the class' do
     instance = More.new
-    expect(instance.local).to eq(__)
+    expect(instance.local).to eq('nested')
   end
 
   it 'inherits constants from enclosing classes' do
-    expect(Animal::NestedAnimal.new.legs_in_nested_animal).to eq(__)
+    expect(Animal::NestedAnimal.new.legs_in_nested_animal).to eq(4)
   end
 
   it 'ignores inherited constants if a more local definition exists' do
-    expect(Animal::Millipede.new.legs_in_millipede).to eq(__)
+    expect(Animal::Millipede.new.legs_in_millipede).to eq(1000)
   end
 
   it 'inherits constants when subclassed from the parent class' do
-    expect(Reptile.new.legs_in_reptile).to eq(__)
+    expect(Reptile.new.legs_in_reptile).to eq(4)
   end
 
   context 'with an inherited class AND an enclosing class' do
     it 'can add a new overridden constant (from the enclosing class), in a subclass' do
-      expect(Zoo::Bird.new.legs_in_bird).to eq(__)
+      expect(Zoo::Bird.new.legs_in_bird).to eq(2)
     end
 
     # Remember that we have already defined what Zoo::LEGS was earlier
     it 'always uses the top level enclosing class FIRST if it was previously defined' do
       # i.e. the top level enclosing class is the "most important" determinant for inheritance of constants
-      expect(Zoo::Oyster.new.legs_in_oyster).to eq(__)
+      expect(Zoo::Oyster.new.legs_in_oyster).to eq(2)
     end
   end
 end
