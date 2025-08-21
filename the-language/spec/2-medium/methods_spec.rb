@@ -126,7 +126,7 @@ RSpec.describe 'Methods' do
     end
 
     it 'can all a private method on the same object' do
-      expect(an_object.calls_the_private_method).to eq(:the_value)
+      expect(an_object.calls_the_private_method).to eq(:the_private_value)
     end
   end
 end
