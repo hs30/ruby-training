@@ -7,7 +7,7 @@ RSpec.describe 'Control statements' do
     else
       result = :false_value
     end
-    expect(result).to eq(__)
+    expect(result).to eq(:true_value)
   end
 
   it 'has if statements' do
@@ -15,7 +15,7 @@ RSpec.describe 'Control statements' do
     if true
       result = :true_value
     end
-    expect(result).to eq(__)
+    expect(result).to eq(:true_value)
   end
 
   it 'returns a value from an if statement' do
@@ -24,14 +24,14 @@ RSpec.describe 'Control statements' do
             else
               :false_value
             end
-    expect(value).to eq(__)
+    expect(value).to eq(:true_value)
 
     value = if false
               :true_value
             else
               :false_value
             end
-    expect(value).to eq(__)
+    expect(value).to eq(:false_value)
 
     # NOTE: Actually, EVERY statement in Ruby will return a value, not just if statements.
   end
@@ -40,20 +40,20 @@ RSpec.describe 'Control statements' do
     value = if false
               :true_value
             end
-    expect(value).to eq(__)
+    expect(value).to eq(nil)
   end
 
   it 'has a ternary operator' do
-    expect(true ? :true_value : :false_value).to eq(__)
+    expect(true ? :true_value : :false_value).to eq(:true_value)
 
-    expect(false ? :true_value : :false_value).to eq(__)
+    expect(false ? :true_value : :false_value).to eq(:false_value)
   end
 
   it 'can use if as a statement modifier' do
     result = :default_value
     result = :true_value if true
 
-    expect(result).to eq(__)
+    expect(result).to eq(:true_value)
   end
 
   it 'has an unless statement' do
@@ -62,20 +62,20 @@ RSpec.describe 'Control statements' do
     unless false # same as saying 'if !false', which evaluates as 'if true'
       result = :false_value
     end
-    expect(result).to eq(__)
+    expect(result).to eq(:false_value)
 
     result = :default_value
     unless true # same as saying 'if !true', which evaluates as 'if false'
       result = :true_value
     end
-    expect(result).to eq(__)
+    expect(result).to eq(:default_value)
   end
 
   it 'can use unless as a statement modifier' do
     result = :default_value
     result = :false_value unless false
 
-    expect(result).to eq(__)
+    expect(result).to eq(:false_value)
   end
 
   it 'has a while statement' do
@@ -85,7 +85,7 @@ RSpec.describe 'Control statements' do
       result = result * i
       i += 1
     end
-    expect(result).to eq(__)
+    expect(result).to eq(3628800)
   end
 
   it 'has a break statement' do
@@ -97,7 +97,7 @@ RSpec.describe 'Control statements' do
       result = result * i
       i += 1
     end
-    expect(result).to eq(__)
+    expect(result).to eq(3628800)
   end
 
   it 'can return a value with break' do
@@ -109,7 +109,7 @@ RSpec.describe 'Control statements' do
         i += 1
       end
 
-    expect(result).to eq(__)
+    expect(result).to eq(2)
   end
 
   it 'can skip an iteration by using next (With a truthy condition)' do
@@ -121,7 +121,7 @@ RSpec.describe 'Control statements' do
 
       result << i
     end
-    expect(result).to eq(__)
+    expect(result).to eq([1, 3, 5, 7, 9])
   end
 
   it 'has a for statement' do
@@ -131,7 +131,7 @@ RSpec.describe 'Control statements' do
       result << item.upcase
     end
 
-    expect(result).to eq(__)
+    expect(result).to eq(['FISH', 'AND', 'CHIPS'])
   end
 
   it 'has a times statement' do
@@ -139,6 +139,6 @@ RSpec.describe 'Control statements' do
     10.times do
       sum += 1
     end
-    expect(sum).to eq(__)
+    expect(sum).to eq(10)
   end
 end
