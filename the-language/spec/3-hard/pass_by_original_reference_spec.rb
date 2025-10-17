@@ -6,7 +6,7 @@ RSpec.describe 'Pass by reference vs Pass by value' do
     y = x
     x += 2
 
-    expect(y).to eq(__)
+    expect(y).to eq(123)
   end
 
   it 'is possible to pass something which can be seen as pass by reference' do
@@ -16,9 +16,9 @@ RSpec.describe 'Pass by reference vs Pass by value' do
     # See the koan below for another example that won't be deprecated
     x = 'string'
     y = x
-    expect { x.upcase! }.to raise_error(__)
+    expect { x.upcase! }.to raise_error(FrozenError)
 
-    expect { expect(y).to eq(__) }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
+    expect { expect(y).to eq('STRING') }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
   end
 
   it 'is also possible to mutate a larger standard object and pass by reference' do
@@ -26,7 +26,7 @@ RSpec.describe 'Pass by reference vs Pass by value' do
     y = x
     x.map! { |number| number * 2 }
 
-    expect(y).to eq(__)
+    expect(y).to eq([2, 4, 6])
   end
 
   class Initial
@@ -49,7 +49,7 @@ RSpec.describe 'Pass by reference vs Pass by value' do
     other = Other.new
     initial.x = other.value
 
-    expect(initial.x == other.value).to be(__)
-    expect { expect(initial.x.object_id == other.value.object_id).to be(__) }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
+    expect(initial.x == other.value).to be(true)
+    expect { expect(initial.x.object_id == other.value.object_id).to be(false) }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
   end
 end

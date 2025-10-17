@@ -21,7 +21,7 @@ RSpec.describe 'Sandwich code' do
   end
 
   it 'can count the amount of lines in a file' do
-    expect(count_lines(EXAMPLE_FILE)).to eq(__)
+    expect(count_lines(EXAMPLE_FILE)).to eq(4)
   end
 
   def find_line(file_name)
@@ -34,7 +34,7 @@ RSpec.describe 'Sandwich code' do
   end
 
   it 'can find a line' do
-    expect(find_line(EXAMPLE_FILE)).to eq(__)
+    expect(find_line(EXAMPLE_FILE)).to eq("test\n")
   end
 
   # What do you notice with `find_line` & `count_lines`? How are they similar?
@@ -71,15 +71,20 @@ RSpec.describe 'Sandwich code' do
   end
 
   it 'can count lines in a file again' do
-    expect(count_lines2(EXAMPLE_FILE)).to eq(__)
+    expect(count_lines2(EXAMPLE_FILE)).to eq(4)
   end
 
   def find_line2(file_name)
     # Rewrite find_line using the file_sandwich library function.
+    file_sandwich(file_name) do |file|
+      while (line = file.gets)
+        return line if line.match(/e/)
+      end
+    end
   end
 
   it 'can find lines in a file again' do
-    expect(find_line2(EXAMPLE_FILE)).to eq(__)
+    expect(find_line2(EXAMPLE_FILE)).to eq("test\n")
   end
 
   def count_lines3(file_name)
@@ -95,6 +100,6 @@ RSpec.describe 'Sandwich code' do
   it 'supports passing a block to open' do
     # So this shows that the sandwich methodology exists in ruby and is quite common
     # This is one of the strong(er), use-cases of blocks
-    expect(count_lines3(EXAMPLE_FILE)).to eq(__)
+    expect(count_lines3(EXAMPLE_FILE)).to eq(4)
   end
 end
